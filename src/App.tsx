@@ -1,11 +1,8 @@
+import { Component, ReactNode } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <>
-      <div></div>
-    </>
-  );
+export class App extends Component {
+  render(): ReactNode {
+    return <div>App works</div>;
+  }
 }
-
-export default App;
