@@ -5,17 +5,20 @@ import { ICrypto, getCryptos } from '../api/get-cryptos';
 import { ls } from '../helpers/local-storage';
 
 type State = {
+  isLoading: boolean;
   cryptos: ICrypto[];
 };
 
 export class SearchableList extends Component<{}, State> {
   state: Readonly<State> = {
     cryptos: [],
+    isLoading: false,
   };
 
   fetchCryptos(search?: string) {
+    this.setState({ ...this.state, isLoading: true });
     getCryptos(search).then((res) =>
-      this.setState({ ...this.state, cryptos: res.data })
+      this.setState({ ...this.state, cryptos: res.data, isLoading: false })
     );
   }
 
@@ -35,7 +38,10 @@ export class SearchableList extends Component<{}, State> {
         }}
       >
         <Search onSubmit={(v) => this.fetchCryptos(v)} />
-        <List items={this.state.cryptos} />
+
+        {this.state.isLoading && <div>Loading...</div>}
+
+        {!this.state.isLoading && <List items={this.state.cryptos} />}
       </div>
     );
   }
