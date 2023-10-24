@@ -17,7 +17,6 @@ export class Search extends Component<Props, State> {
   componentDidMount(): void {
     const search = ls.getSearch();
     this.setState({ search });
-    // this.props.onSubmit(search);
   }
 
   handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
