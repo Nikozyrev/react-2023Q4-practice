@@ -10,7 +10,7 @@ type State = {
   cryptos: ICrypto[];
 };
 
-export class SearchableList extends Component<{}, State> {
+export class SearchableList extends Component<Record<string, never>, State> {
   state: Readonly<State> = {
     cryptos: [],
     isLoading: false,

@@ -4,7 +4,7 @@ type State = {
   hasError: boolean;
 };
 
-export class ErrorButton extends Component<{}, State> {
+export class ErrorButton extends Component<Record<string, never>, State> {
   state: Readonly<State> = {
     hasError: false,
   };
