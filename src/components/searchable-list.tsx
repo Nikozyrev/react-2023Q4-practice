@@ -1,6 +1,7 @@
 import { Component, ReactNode } from 'react';
 import { List } from './list';
 import { Search } from './search';
+import { ErrorButton } from './error-button';
 import { ICrypto, getCryptos } from '../api/get-cryptos';
 import { ls } from '../helpers/local-storage';
 
@@ -38,6 +39,8 @@ export class SearchableList extends Component<{}, State> {
         }}
       >
         <Search onSubmit={(v) => this.fetchCryptos(v)} />
+
+        <ErrorButton />
 
         {this.state.isLoading && <div>Loading...</div>}
 
