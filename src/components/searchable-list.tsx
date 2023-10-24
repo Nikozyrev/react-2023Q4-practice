@@ -2,22 +2,26 @@ import { Component, ReactNode } from 'react';
 import { List } from './list';
 import { Search } from './search';
 import { ICrypto, getCryptos } from '../api/get-cryptos';
+import { ls } from '../helpers/local-storage';
 
 type State = {
-  search: string;
   cryptos: ICrypto[];
 };
 
 export class SearchableList extends Component<{}, State> {
   state: Readonly<State> = {
-    search: '',
     cryptos: [],
   };
 
-  componentDidMount(): void {
-    getCryptos().then((res) =>
+  fetchCryptos(search?: string) {
+    getCryptos(search).then((res) =>
       this.setState({ ...this.state, cryptos: res.data })
     );
+  }
+
+  componentDidMount(): void {
+    const search = ls.getSearch();
+    this.fetchCryptos(search);
   }
 
   render(): ReactNode {
@@ -30,7 +34,7 @@ export class SearchableList extends Component<{}, State> {
           textAlign: 'center',
         }}
       >
-        <Search />
+        <Search onSubmit={(v) => this.fetchCryptos(v)} />
         <List items={this.state.cryptos} />
       </div>
     );
