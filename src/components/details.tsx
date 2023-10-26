@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { DetailsInfo } from './details-info';
 
 export function Details() {
   const { id } = useParams();
@@ -7,15 +8,18 @@ export function Details() {
 
   const goToMain = () => navigate('/');
 
+  if (!id) {
+    goToMain();
+    return null;
+  }
+
   return (
     <div style={modalStyles} onClick={goToMain}>
       <div style={infoStyles} onClick={(e) => e.stopPropagation()}>
         <button style={closeBtnStyles} onClick={goToMain}>
           X
         </button>
-        <div>
-          Details component for id <b>{id}</b>
-        </div>
+        <DetailsInfo id={id} />
       </div>
     </div>
   );
